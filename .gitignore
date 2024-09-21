@@ -16,3 +16,5 @@ lib/contracts/
 lib/thirdweb-contracts/
 lib/openzeppelin-contracts-upgradeable/
 lib/openzeppelin-contracts/
+
+.DS_Store
