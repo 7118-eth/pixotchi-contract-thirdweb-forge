@@ -11,7 +11,7 @@
     "combined-stream": "^1.0.8",
     "inquirer": "9.3.5",
     "prettier": "3.3.2",
-    "thirdweb": "5.34.1"
+    "thirdweb": "5.58.3"
   },
   "devDependencies": {
     "@types/inquirer": "9.0.7",
