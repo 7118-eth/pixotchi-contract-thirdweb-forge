@@ -90,26 +90,5 @@ library LibLandToPlant {
         data = GameStorage.data();
     }
 
-//    function _assignPlantPoints(uint256 _nftId, uint256 _addedPoints) internal returns(uint256 _newPlantPoints) {
-//        require(IGame(address(this)).isPlantAlive(_nftId), "Plant is dead");
-//        require (_addedPoints > 0, "Points must be greater than 0");
-//
-//        if (_s().plantScore[_nftId] > 0) {
-//            _s().ethOwed[_nftId] = IGame(address(this)).pendingEth(_nftId);
-//        }
-//
-//        _s().plantScore[_nftId] += _addedPoints;
-//
-//        _s().plantRewardDebt[_nftId] = _s().plantScore[_nftId].mulDivDown(
-//            _s().ethAccPerShare,
-//            _s().PRECISION
-//        );
-//
-//        _s().totalScores += _addedPoints;
-//
-//        _newPlantPoints =_s().plantScore[_nftId];
-//
-//        return _newPlantPoints;
-//    }
 
 }
