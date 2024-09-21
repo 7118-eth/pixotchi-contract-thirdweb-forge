@@ -2,6 +2,7 @@
 pragma solidity ^0.8.26;
 
 /// @title ILandToPlant Interface
+/// @author 7118.eth
 /// @notice Interface for the LandToPlant contract, managing plant points and lifetime for NFTs
 interface ILandToPlant {
     /// @notice Assigns plant points to an NFT
