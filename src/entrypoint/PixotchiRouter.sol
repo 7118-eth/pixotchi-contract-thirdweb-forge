@@ -82,7 +82,7 @@ ReentrancyGuard,
 ERC2771ContextUpgradeable
 {
     /// @dev Only EXTENSION_ROLE holders can perform upgrades.
-    bytes32 private constant EXTENSION_ROLE = keccak256("EXTENSION_ROLE");
+    bytes32 private constant EXTENSION_ROLE = keccak256("EXTENSION_ROLE"); //chisel output: 0x55add213c41f3851b4506717b8af695a4256979dff496dcaae7789f6121331aa
 
     bytes32 private constant MODULE_TYPE = bytes32("PixotchiRouter");
     uint256 private constant VERSION = 1;
