@@ -17,3 +17,7 @@ interface ILandToPlant {
     /// @return _newLifetime The updated lifetime for the NFT
     function landToPlantAssignLifeTime(uint256 _nftId, uint256 _lifetime) external returns (uint256 _newLifetime);
 }
+
+
+    event LandToPlantAssignPoints(uint256 indexed nftId, uint256 addedPoints, uint256 newTotalPoints);
+    event LandToPlantAssignLifetime(uint256 indexed nftId, uint256 addedLifetime, uint256 newTotalLifetime);
