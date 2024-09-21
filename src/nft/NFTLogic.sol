@@ -478,7 +478,7 @@ contract NFTLogic is
 
         uint256 mintPrice = _s().mintPriceByStrain[strain];
         uint256 tokenId = _totalMinted();
-        address to = msg.sender;
+        //address to = msg.sender;
 
         _s().strainTotalMinted[strain]++;
 
