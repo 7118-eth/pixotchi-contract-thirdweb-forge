@@ -2,6 +2,7 @@
 pragma solidity ^0.8.26;
 
 import {LibLandToPlant} from "./LibLandToPlant.sol";
+import  {ILandToPlant} from "./ILandToPlant.sol";
 
 /**
  * @title LandToPlant
@@ -10,7 +11,7 @@ import {LibLandToPlant} from "./LibLandToPlant.sol";
  * @dev This contracts contains functions for calculating rewards, assigning points,
  *      and managing plant lifetimes
  */
-contract LandToPlant {
+contract LandToPlant is ILandToPlant {
 
     function landToPlantAssignPlantPoints(uint256 _nftId, uint256 _addedPoints) external returns (uint256 _newPlantPoints) {
         //TODO: security check. only land contract should be able to call this. 
