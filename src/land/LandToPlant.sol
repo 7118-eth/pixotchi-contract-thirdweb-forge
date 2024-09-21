@@ -14,16 +14,12 @@ import  {LandAccessControl} from "./LandAccessControl.sol";
  */
 contract LandToPlant is ILandToPlant, LandAccessControl {
 
-    function landToPlantAssignPlantPoints(uint256 _nftId, uint256 _addedPoints) onlyAllowedCaller() external returns (uint256 _newPlantPoints)  {
-        //TODO: security check. only land contract should be able to call this. 
-        //TODO: we have to also make sure that the tx is form the owner.
+    function landToPlantAssignPlantPoints(uint256 _nftId, uint256 _addedPoints) onlyAllowedCaller() onlyPlantOwner(_nftId) external returns (uint256 _newPlantPoints)  {
         return LibLandToPlant.assignPlantPoints(_nftId, _addedPoints);
     }
 
 
-    function landToPlantAssignLifeTime(uint256 _nftId, uint256 _lifetime) onlyAllowedCaller() external returns(uint256 _newLifetime) {
-                //TODO: security check. only land contract should be able to call this. 
-        //TODO: we have to also make sure that the tx is form the owner.
+    function landToPlantAssignLifeTime(uint256 _nftId, uint256 _lifetime) onlyAllowedCaller() onlyPlantOwner(_nftId) external returns(uint256 _newLifetime) {
         return LibLandToPlant.assignLifeTime(_nftId, _lifetime);
     }
 
