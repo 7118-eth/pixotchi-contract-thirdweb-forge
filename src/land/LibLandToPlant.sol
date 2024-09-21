@@ -3,6 +3,7 @@ pragma solidity ^0.8.26;
 
 import "../game/GameStorage.sol";
 import {IGame} from "../IPixotchi.sol";
+import {LandToPlantAssignPoints, LandToPlantAssignLifetime} from "./ILandToPlant.sol";
 
 /**
  * @title LibLandToPlant
@@ -64,6 +65,8 @@ library LibLandToPlant {
 
         _newPlantPoints = _s().plantScore[_nftId];
 
+        emit LandToPlantAssignPoints(_nftId, _addedPoints, _newPlantPoints);
+
         return _newPlantPoints;
     }
 
@@ -80,6 +83,10 @@ library LibLandToPlant {
         _s().plantTimeUntilStarving[_nftId] += _lifetime;
 
         _newLifetime = _s().plantTimeUntilStarving[_nftId];
+
+        emit LandToPlantAssignLifetime(_nftId, _lifetime, _newLifetime);
+
+        return _newLifetime;
     }
 
 /**
