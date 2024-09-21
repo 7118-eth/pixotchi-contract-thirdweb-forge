@@ -44,7 +44,7 @@ library LibLandToPlant {
  * @param _addedPoints The number of points to add to the plant's score.
  * @return _newPlantPoints The new total points of the plant after addition.
  */
-    function _assignPlantPoints(uint256 _nftId, uint256 _addedPoints) internal returns (uint256 _newPlantPoints) {
+    function assignPlantPoints(uint256 _nftId, uint256 _addedPoints) internal returns (uint256 _newPlantPoints) {
         require(IGame(address(this)).isPlantAlive(_nftId), "Plant is dead");
         require(_addedPoints > 0, "Points must be greater than 0");
 
@@ -74,7 +74,7 @@ library LibLandToPlant {
  * @param _lifetime The amount of lifetime to add to the plant.
  * @return _newLifetime The new total lifetime of the plant after addition.
  */
-    function _assignLifeTime(uint256 _nftId, uint256 _lifetime) internal returns(uint256 _newLifetime) {
+    function assignLifeTime(uint256 _nftId, uint256 _lifetime) internal returns(uint256 _newLifetime) {
         require (_lifetime > 0, "Points must be greater than 0");
 
         _s().plantTimeUntilStarving[_nftId] += _lifetime;
