@@ -22,14 +22,14 @@ abstract contract LandAccessControl {
         _;
     }
 
-    /**
-     * @notice Modifier to restrict access to the owner of a specific NFT
-     * @dev Reverts if the caller is not the owner of the specified NFT
-     * @param nftId The ID of the NFT
-     */
-    modifier onlyPlantOwner(uint256 nftId) {
-        require((IERC721A(address(this)).ownerOf(nftId) == msg.sender), "msg sender is not owner");
-        _;
-    }
+//    /**
+//     * @notice Modifier to restrict access to the owner of a specific NFT
+//     * @dev Reverts if the caller is not the owner of the specified NFT
+//     * @param nftId The ID of the NFT
+//     */
+//    modifier onlyPlantOwner(uint256 nftId) {
+//        require((IERC721A(address(this)).ownerOf(nftId) == tx.origin), "tx.origin is not owner"); //doesnt work for AA
+//        _;
+//    }
     
 }

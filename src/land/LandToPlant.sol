@@ -19,7 +19,7 @@ contract LandToPlant is ILandToPlant, LandAccessControl {
     /// @param _nftId The ID of the NFT
     /// @param _addedPoints The number of points to add
     /// @return _newPlantPoints The updated total plant points for the NFT
-    function landToPlantAssignPlantPoints(uint256 _nftId, uint256 _addedPoints) onlyAllowedCaller() onlyPlantOwner(_nftId) external returns (uint256 _newPlantPoints)  {
+    function landToPlantAssignPlantPoints(uint256 _nftId, uint256 _addedPoints) onlyAllowedCaller() /*onlyPlantOwner(_nftId)*/ external returns (uint256 _newPlantPoints)  {
         return LibLandToPlant.assignPlantPoints(_nftId, _addedPoints);
     }
 
@@ -28,7 +28,7 @@ contract LandToPlant is ILandToPlant, LandAccessControl {
     /// @param _nftId The ID of the NFT
     /// @param _lifetime The lifetime value to assign
     /// @return _newLifetime The updated lifetime for the NFT
-    function landToPlantAssignLifeTime(uint256 _nftId, uint256 _lifetime) onlyAllowedCaller() onlyPlantOwner(_nftId) external returns(uint256 _newLifetime) {
+    function landToPlantAssignLifeTime(uint256 _nftId, uint256 _lifetime) onlyAllowedCaller() /*onlyPlantOwner(_nftId)*/ external returns(uint256 _newLifetime) {
         return LibLandToPlant.assignLifeTime(_nftId, _lifetime);
     }
 }
