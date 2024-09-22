@@ -3,7 +3,7 @@ pragma solidity ^0.8.26;
 
 import "../game/GameStorage.sol";
 import {IGame} from "../IPixotchi.sol";
-import {LandToPlantAssignPoints, LandToPlantAssignLifetime} from "./ILandToPlant.sol";
+import {LandToPlantAssignPoints, LandToPlantAssignLifetime} from "./LandToPlantEvents.sol";
 
 /**
  * @title LibLandToPlant
