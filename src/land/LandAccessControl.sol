@@ -11,7 +11,8 @@ import "../../lib/contracts/contracts/eip/interface/IERC721A.sol";
  */
 abstract contract LandAccessControl {
     /// @notice Address of the allowed caller (temporary solution)
-    address public immutable allowedCaller = 0xBd4FB987Bcd42755a62dCf657a3022B8b17D5413;
+    //address public immutable allowedCaller_testnet = 0xBd4FB987Bcd42755a62dCf657a3022B8b17D5413;
+    address public immutable allowedCaller = 0x3f1F8F0C4BE4bCeB45E6597AFe0dE861B8c3278c;
 
     /**
      * @notice Modifier to restrict access to the allowed caller
