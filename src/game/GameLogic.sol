@@ -73,7 +73,7 @@ contract GameLogic is IGame, ReentrancyGuard/*, ERC2771ContextConsumer*/ {
         require(isPlantAlive(fromId), "your plant is dead");
         require(isPlantAlive(toId), "plant dead");
 
-        (uint256 pct, uint256 odds, bool canAttack) = onAttack(fromId, toId);
+        (uint256 odds, bool canAttack, uint256 prizeScore, uint256 prizeDebt) = onAttack(fromId, toId);
 
         if (!canAttack) {
             return;
@@ -95,10 +95,7 @@ contract GameLogic is IGame, ReentrancyGuard/*, ERC2771ContextConsumer*/ {
             winner = fromId;
         }
 
-        uint256 feePercentage = _s().PRECISION.mulDivDown(pct, 1000); // 0.5 pct
-        uint256 prizeScore = _s().plantScore[loser].mulDivDown(feePercentage, _s().PRECISION);
-        uint256 prizeDebt = _s().plantRewardDebt[loser].mulDivDown(feePercentage, _s().PRECISION);
-
+        // Transfer the same amount regardless of who wins/loses
         _s().plantScore[loser] -= prizeScore;
         _s().plantRewardDebt[loser] -= prizeDebt;
 
@@ -317,11 +314,12 @@ contract GameLogic is IGame, ReentrancyGuard/*, ERC2771ContextConsumer*/ {
      * @dev Handles an attack between two plants.
      * @param fromId The ID of the attacking plant.
      * @param toId The ID of the plant being attacked.
-     * @return pct The percentage of the prize.
      * @return odds The odds of winning the attack.
      * @return canAttack True if the attack can proceed, false otherwise.
+     * @return prizeScore The score amount at stake.
+     * @return prizeDebt The debt amount at stake.
      */
-    function onAttack(uint256 fromId, uint256 toId) public view returns (uint256 pct, uint256 odds, bool canAttack) {
+    function onAttack(uint256 fromId, uint256 toId) public view returns (uint256 odds, bool canAttack, uint256 prizeScore, uint256 prizeDebt) {
         require(
             block.timestamp >= _s().plantLastAttackUsed[fromId] + 15 minutes ||
             _s().plantLastAttackUsed[fromId] == 0,
@@ -339,8 +337,26 @@ contract GameLogic is IGame, ReentrancyGuard/*, ERC2771ContextConsumer*/ {
             !IShop(address(this)).shopIsEffectOngoing(toId, 0),
             "Target plant is protected by a Fence"
         );
+        require(
+            _s().plantScore[fromId] > 0,
+            "Your plant has no score"
+        );
 
-        pct = 5; // Set the percentage to 0.5%
+        uint256 pct = 5; // Set the percentage to 0.5%
+
+
+//        uint256 minScore = _s().plantScore[toId].mulDivDown(pct, 1000); // Calculate 0.5% of target's score
+//        require(
+//            _s().plantScore[fromId] >= minScore,
+//            "Attacker score too low - need at least 0.5% of target's score"
+//        );
+        // Calculate prize based on defender's score (this will be the amount at stake)
+        uint256 feePercentage = _s().PRECISION.mulDivDown(pct, 1000); // 0.5 pct
+        prizeScore = _s().plantScore[toId].mulDivDown(feePercentage, _s().PRECISION);
+        prizeDebt = _s().plantRewardDebt[toId].mulDivDown(feePercentage, _s().PRECISION);
+
+        require(_s().plantScore[fromId] >= prizeScore, "Not enough points to risk");
+
         odds = 40; // Set the odds for the attacker as lower level to 40%
         canAttack = true; // Set canAttack to true
     }
