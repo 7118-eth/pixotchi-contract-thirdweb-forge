@@ -80,7 +80,7 @@ contract GameLogic is IGame, ReentrancyGuard/*, ERC2771ContextConsumer*/ {
         }
 
         _s().plantLastAttackUsed[fromId] = block.timestamp;
-        _s().plantLastAttacked[toId] = block.timestamp;
+        //_s().plantLastAttacked[toId] = block.timestamp; //experimental
 
         uint256 loser;
         uint256 winner;
@@ -88,12 +88,18 @@ contract GameLogic is IGame, ReentrancyGuard/*, ERC2771ContextConsumer*/ {
         uint256 _random = random(fromId + toId);
 
         if (_random > odds) {
+            //defender wins
             loser = fromId;
             winner = toId;
         } else {
+            //attacker wins
+            _s().plantLastAttacked[toId] = block.timestamp; //experimental
+
             loser = toId;
             winner = fromId;
         }
+
+        _s().plantTimeUntilStarving[loser] += prizeScore; //experimental. Trostpreis ;)
 
         // Transfer the same amount regardless of who wins/loses
         _s().plantScore[loser] -= prizeScore;
@@ -329,10 +335,10 @@ contract GameLogic is IGame, ReentrancyGuard/*, ERC2771ContextConsumer*/ {
             block.timestamp > _s().plantLastAttacked[toId] + 1 hours,
             "can be attacked once every hour"
         );
-        require(
-            level(fromId) < level(toId),
-            "Only attack plants above your level"
-        );
+//        require(
+//            level(fromId) < level(toId),
+//            "Only attack plants above your level"
+//        );
         require(
             !IShop(address(this)).shopIsEffectOngoing(toId, 0),
             "Target plant is protected by a Fence"
@@ -357,7 +363,7 @@ contract GameLogic is IGame, ReentrancyGuard/*, ERC2771ContextConsumer*/ {
 
         require(_s().plantScore[fromId] >= prizeScore, "Not enough points to risk");
 
-        odds = 40; // Set the odds for the attacker as lower level to 40%
+        odds = 50; // Set the odds for the attacker as lower level to 50%
         canAttack = true; // Set canAttack to true
     }
 
