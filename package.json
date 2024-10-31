@@ -16,6 +16,7 @@
   "devDependencies": {
     "@types/inquirer": "9.0.7",
     "dotenv": "16.4.5",
+    "dotenv-cli": "^7.4.2",
     "ts-node": "10.9.2"
   },
   "scripts": {
@@ -25,7 +26,7 @@
     "forge:build": "forge build --sizes --force",
     "abi:generate": "node abi/MergeAbi.js",
     "build": "thirdweb detect",
-    "deploy": "thirdweb deploy",
-    "deploy:dynamic": "thirdweb deploy --dynamic"
+    "deploy": "dotenv -- bash -c 'thirdweb deploy -k \"$THIRDWEB_SECRET\"'",
+    "deploy:dynamic": "dotenv -- bash -c 'thirdweb deploy --dynamic -k \"$THIRDWEB_SECRET\"'"
   }
 }
