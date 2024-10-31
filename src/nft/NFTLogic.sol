@@ -158,13 +158,19 @@ contract NFTLogic is
      * @return An array of PlantStatus structs containing information about the plants.
      */
     function getPlantStatusRange(uint256 fromId, uint256 toId) public view returns (PlantStatus[] memory) {
-        require(fromId <= toId, "Invalid ID range");
-        require(toId < _totalMinted(), "To ID exceeds total minted");
+        uint256 id;
+        if (fromId == 0 && toId == 0) {
+            id = _totalMinted();
+        } else {
+            require(fromId <= toId, "Invalid ID range");
+            require(toId < _totalMinted(), "To ID exceeds total minted");
+            id = fromId;
+        }
 
         PlantStatus[] memory plants = new PlantStatus[](toId - fromId + 1);
         uint256 validCount = 0;
 
-        for (uint256 id = fromId; id <= toId; id++) {
+        for (; id <= toId; id++) {
 
             if(!ERC721AExtensionLib.exists(id)) {
                 continue;
